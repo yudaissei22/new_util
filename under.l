@@ -11,7 +11,9 @@
 ;;まず、姿勢を作るところ
 ;;投げる前の姿勢を、生成し*ri*に記録する。これも関数化するもの？
 (send *robot* :rarm-elbow-p :joint-angle 40)
-(send *robot* :rarm-wrist :joint-angle -90)
+(send *robot* :rarm-wrist-p :joint-angle 10)
+(send *robot* :rarm-wrist-y :joint-angle -90)
+
 (setq *before-swing* (send *robot* :angle-vector)) ;;グローバル変数にbefore-swingに設定できた。
 (send *ri* :angle-vector (send *robot* :angle-vector)) ;;riへ送る
 
@@ -34,7 +36,7 @@
 (defun throw (time)
 
 ;;投げたあとの姿勢...ここを目標にして投げる。
-  (send *robot* :rarm-elbow-p :joint-angel -40)
+  (send *robot* :rarm-elbow-p :joint-angle -40)
   (send *robot* :rarm-shoulder-p :joint-angle -10)
 
   (setq *after-swing* (send *robot* :angle-vector))  ;;after-swingに設定できた
