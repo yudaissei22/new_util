@@ -3,6 +3,8 @@
 (load "package://auto_stabilizer/euslisp/auto-stabilizer-interface.l")
 (jaxon_red-init)
 (setq *robot* *jaxon_red*)
+(send *ri* :start-auto-balancer)
+(send *ri* :start-st)
 
 ;;IRTviewerの表示
 (objects *robot*)
@@ -44,7 +46,7 @@
   )
 
 ;;投げる準備。投げる前を*ri*に入れてから、投げたあとを*robot*へ入れる。
-(defun set-throw
+(defun set-throw ()
   (send *robot* :rarm-elbow-p :joint-angle 40)
   (send *robot* :rarm-wrist-p :joint-angle 10)
   (send *robot* :rarm-wrist-y :joint-angle -90)
