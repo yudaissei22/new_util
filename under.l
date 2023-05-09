@@ -4,7 +4,8 @@
 (jaxon_red-init)
 (setq *robot* *jaxon_red*)
 (send *ri* :start-auto-balancer)
-(send *ri* :start-st)
+;;(send *ri* :set-st-param :use-force-sensor nil :use-footguided-stabilizer t)
+;;力センサーでなく、6軸センサによる制御のため、これで空中でバタバタしなくなる。
 
 ;;IRTviewerの表示
 (objects *robot*)
