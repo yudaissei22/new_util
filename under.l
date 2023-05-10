@@ -3,12 +3,15 @@
 (load "package://auto_stabilizer/euslisp/auto-stabilizer-interface.l")
 (jaxon_red-init)
 (setq *robot* *jaxon_red*)
-(send *ri* :start-auto-balancer)
+
+;;これらは手で打ち込んだほうが良かった
+;; (send *ri* :start-auto-balancer)
+;; (send *ri* :start-st)
 ;;(send *ri* :set-st-param :use-force-sensor nil :use-footguided-stabilizer t)
 ;;力センサーでなく、6軸センサによる制御のため、これで空中でバタバタしなくなる。
 
 ;;IRTviewerの表示
-(objects *robot*)
+;;(objects *robot*)
 
 ;;まず、姿勢を作るところ
 ;;投げる前の姿勢を、生成し*ri*に記録する。これも関数化するもの？
