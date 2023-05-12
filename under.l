@@ -6,9 +6,14 @@
 
 ;;これらは手で打ち込んだほうが良かった
 
-(defun st ()
+(defun ab ()
   (send *ri* :start-auto-balancer)
   )
+
+(defun st()
+  (send *ri* :start-st)
+  )
+
 ;; (send *ri* :start-st)
 ;;(send *ri* :set-st-param :use-force-sensor nil :use-footguided-stabilizer t)
 ;;力センサーでなく、6軸センサによる制御のため、これで空中でバタバタしなくなる。
@@ -24,15 +29,15 @@
 ;; (setq *before-swing* (send *robot* :angle-vector)) ;;グローバル変数にbefore-swingに設定できた。
 ;; (send *ri* :angle-vector (send *robot* :angle-vector)) ;;riへ送る
 ;;P,Dゲインを一括で弱める関数...後々に各関節ごとにしやすくするかも
-(defun pdgain-rarm (percentage)
-  (send *ri* :robothardwareservice_setservopgainpercentagewithtime :name :RARM_JOINT1 :percentage percentage :time 5)
-  (send *ri* :robothardwareservice_setservodgainpercentagewithtime :name :RARM_JOINT1 :percentage percentage :time 5)
+(defun pdgain-larm(percentage)
+  (send *ri* :robothardwareservice_setservopgainpercentagewithtime :name :LARM_JOINT1 :percentage percentage :time 5)
+  (send *ri* :robothardwareservice_setservodgainpercentagewithtime :name :LARM_JOINT1 :percentage percentage :time 5)
 
-  (send *ri* :robothardwareservice_setservopgainpercentagewithtime :name :RARM_JOINT4 :percentage percentage :time 5)
-  (send *ri* :robothardwareservice_setservodgainpercentagewithtime :name :RARM_JOINT4 :percentage percentage :time 5)
+  (send *ri* :robothardwareservice_setservopgainpercentagewithtime :name :LARM_JOINT4 :percentage percentage :time 5)
+  (send *ri* :robothardwareservice_setservodgainpercentagewithtime :name :LARM_JOINT4 :percentage percentage :time 5)
 
-  (send *ri* :robothardwareservice_setservopgainpercentagewithtime :name :RARM_JOINT6 :percentage percentage :time 5)
-  (send *ri* :robothardwareservice_setservodgainpercentagewithtime :name :RARM_JOINT6 :percentage percentage :time 5)
+  (send *ri* :robothardwareservice_setservopgainpercentagewithtime :name :LARM_JOINT6 :percentage percentage :time 5)
+  (send *ri* :robothardwareservice_setservodgainpercentagewithtime :name :LARM_JOINT6 :percentage percentage :time 5)
   )
 
 ;;個別のjointのゲイン調整用
@@ -53,14 +58,14 @@
 
 ;;投げる準備。投げる前を*ri*に入れてから、投げたあとを*robot*へ入れる。
 (defun set-throw ()
-  (send *robot* :rarm-elbow-p :joint-angle 40)
-  (send *robot* :rarm-wrist-p :joint-angle 10)
-  (send *robot* :rarm-wrist-y :joint-angle -90)
+  (send *robot* :larm-elbow-p :joint-angle 40)
+  (send *robot* :larm-wrist-p :joint-angle 10)
+  (send *robot* :larm-wrist-y :joint-angle 90)
   (setq *before-throw* (send *robot* :angle-vector)) ;;グローバル変数にbefore-swingに設定できた。
   (send *ri* :angle-vector (send *robot* :angle-vector)) ;;riへ送る
    
-  (send *robot* :rarm-elbow-p :joint-angle -40)
-  (send *robot* :rarm-shoulder-p :joint-angle -10)
+  (send *robot* :larm-elbow-p :joint-angle -40)
+  (send *robot* :larm-shoulder-p :joint-angle -10)
   (setq *after-throw* (send *robot* :angle-vector))  ;;after-swingに設定できた
   )
 
@@ -83,7 +88,11 @@
   (send *ri* :angle-vector (send *robot* :angle-vector) 1000)
   )
 
-;;強化学習で手先の速度を最大化する学習手順
+;;学習で手先の速度を最大化する学習手順
 (defun best-throw()
   (perfect-throw)
   )
+
+(ab)
+(st)
+(set-throw)

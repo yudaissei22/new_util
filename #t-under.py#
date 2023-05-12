@@ -2,6 +2,8 @@
 # 目標は、下投げの動作で、効率よくトルクを手先に伝えること。効率の良さはどう評価するのかについてだが、ログのとり方は教わったので、頑張ってやる。
 # また、パラメータを調整する学習の際に、各情報を所得しなくてはいけないのだが、それはどうやるのかな？
 
+
+import time 
 #必要なもの
 hcf.ast_scv.startAutoBalancer()
 hcf.ast_scv.startStabilizer()
@@ -13,15 +15,15 @@ hcf.rh_svc.setServoDGainPercentageWithTime()
 #RobotHardwareService._d_setServoPGainPercentageWithTime = (((omniORB.tcInternal.tv_string,0), omniORB.tcInternal.tv_double, omniORB.tcInternal.tv_double), (), None)
 
 
-
-#これで、動かす
-
-
-hcf.seq_svc.setWrenches([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, rh_y_force, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], t)
-
+while True:
+    
+#位置制御のゲインを抜いて、手先にトルクを発生させて動かす。
+#t秒かけてそのトルクを発生させる動作をする。
+    hcf.seq_svc.setWrenches([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -50, 0, 0, 0], 2)
+    hcf.seq_svc.setWrenches([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, rh_y_force, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], t)
 #これで*robot*の各情報を所得。
-hcf.rh_svc.getStatus2()
-
+    hcf.rh_svc.getStatus2()
+    time.sleep(0.1) #これはただ待機するだけ
 
 
 
