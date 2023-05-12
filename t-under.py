@@ -16,13 +16,9 @@ hcf.rh_svc.setServoDGainPercentageWithTime()
 
 #これで、動かす
 
-
-hcf.seq_svc.setWrenches([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, rh_y_force, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], t)
-
-#これで*robot*の各情報を所得。
-hcf.rh_svc.getStatus2()
-
-
+def underthrow (z_lhand_force, time):
+    hcf.seq_svc.setWrenches([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, z_lhand_force, 0, 0, 0], time)
+    hcf.rh_svc.getStatus2()
 
 
 
