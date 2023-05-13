@@ -1,24 +1,21 @@
-# 時間を使って処理する。
+# 周波数を使って一定時間ごとに処理をする。
 # 目標は、下投げの動作で、効率よくトルクを手先に伝えること。効率の良さはどう評価するのかについてだが、ログのとり方は教わったので、頑張ってやる。
 # また、パラメータを調整する学習の際に、各情報を所得しなくてはいけないのだが、それはどうやるのかな？
 
-#必要なもの
+import numpy as np
+
 hcf.ast_scv.startAutoBalancer()
 hcf.ast_scv.startStabilizer()
 
-#p,gゲインを弱める
-hcf.rh_svc.setServoPGainPercentageWithTime()
-hcf.rh_svc.setServoDGainPercentageWithTime()
-
-#RobotHardwareService._d_setServoPGainPercentageWithTime = (((omniORB.tcInternal.tv_string,0), omniORB.tcInternal.tv_double, omniORB.tcInternal.tv_double), (), None)
-
-
-
-#これで、動かす
-
 def underthrow (z_lhand_force, time):
+    freqs = np.linspace(0, 1, 44100) #0から1を44100個の等間隔な数列を生成し、freqsに代入 
+    #p,gゲインを弱める
+    hcf.rh_svc.setServoPGainPercentageWithTime()
+    hcf.rh_svc.setServoDGainPercentageWithTime()
+
     hcf.seq_svc.setWrenches([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, z_lhand_force, 0, 0, 0], time)
-    hcf.rh_svc.getStatus2()
+    status = hcf.rh_svc.getStatus2() #collect information and use for learning
+    
 
 
 
