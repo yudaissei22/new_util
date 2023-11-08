@@ -1,0 +1,8 @@
+;; load here
+
+
+;; load avlist
+(with-open-file (s "A" :direction :input)
+		(let (buff))
+		(while (setq buff (read-line s nil))
+		  (print buff)))

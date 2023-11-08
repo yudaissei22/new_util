@@ -71,7 +71,10 @@
 
 ;;*ri*を時間指定して送る。
 (defun throw (time)
+  (send *ri* :start-log)
   (send *ri* :angle-vector (send *robot* :angle-vector) time)
+  (send *ri* :wait-interpolation)
+  (send *ri* :save-log "/home/yuda/tmp/no-tqcversion")
   )
 
 ;;pe
@@ -87,12 +90,3 @@
   (setq *after-throw* (send *robot* :angle-vector))  ;;after-swingに設定できた
   (send *ri* :angle-vector (send *robot* :angle-vector) 1000)
   )
-
-;;学習で手先の速度を最大化する学習手順
-(defun best-throw()
-  (perfect-throw)
-  )
-
-(ab)
-(st)
-(set-throw)
