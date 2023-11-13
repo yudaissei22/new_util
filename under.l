@@ -29,6 +29,19 @@
 ;; (setq *before-swing* (send *robot* :angle-vector)) ;;グローバル変数にbefore-swingに設定できた。
 ;; (send *ri* :angle-vector (send *robot* :angle-vector)) ;;riへ送る
 ;;P,Dゲインを一括で弱める関数...後々に各関節ごとにしやすくするかも
+
+
+(defun kc()
+  (send *robot* :larm-shoulder-p :joint-angle )
+  (send *robot* :larm-shoulder-r :joint-angle )
+  (send *robot* :larm-wrist-r :joint-angle )
+  (setq *before-swing* (send *robot* :angle-vector))
+  (send *ri* :angle-vector (send *robot* :angle-vector))
+  )
+
+
+
+
 (defun pdgain-larm(percentage)
   (send *ri* :robothardwareservice_setservopgainpercentagewithtime :name :LARM_JOINT1 :percentage percentage :time 5)
   (send *ri* :robothardwareservice_setservodgainpercentagewithtime :name :LARM_JOINT1 :percentage percentage :time 5)
@@ -68,6 +81,7 @@
   (send *robot* :larm-shoulder-p :joint-angle -10)
   (setq *after-throw* (send *robot* :angle-vector))  ;;after-swingに設定できた
   )
+
 
 ;;*ri*を時間指定して送る。
 (defun throw (time)
