@@ -31,10 +31,10 @@
 ;;P,Dゲインを一括で弱める関数...後々に各関節ごとにしやすくするかも
 
 
-(defun kc()
-  (send *robot* :larm-shoulder-p :joint-angle )
-  (send *robot* :larm-shoulder-r :joint-angle )
-  (send *robot* :larm-wrist-r :joint-angle )
+(defun kc(a,b,c)
+  (send *robot* :larm-shoulder-p :joint-angle a)
+  (send *robot* :larm-shoulder-r :joint-angle b)
+  (send *robot* :larm-wrist-r :joint-angle c)
   (setq *before-swing* (send *robot* :angle-vector))
   (send *ri* :angle-vector (send *robot* :angle-vector))
   )

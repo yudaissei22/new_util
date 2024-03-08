@@ -1,0 +1,63 @@
+;; pose1
+(defun pose1 ()
+(send *ri* :angle-vector
+        #f(
+           5.35899 -18.7187 -43.3007 82.5595 -37.7075 17.3467 ;; rleg_joint0~5 (<legs> crotch-y,r,p / knee-p / ankle-p, r)
+           48.7875 28.4699 -45.369 58.7039 -11.0443 -28.4245  ;; lleg_joint0~5
+           3.0813 13.7412 -16.5634 ;; chest_joint0~2 (<torso> waist-r,p,y)
+           22.4 0.0 ;; head_joint0~1 (<head> neck-y,p)
+           -0.328496 -59.2828 -50.1455 -0.49446 -90 -69.5632 -19.1267 46.2037 ;; rarm_joint0~6 (<arms> collar-y shoulder-p,r,y elbow-p wrist-y,r,p)
+           0 0 60 0 -60 45 0 0 ;; larm_joint0~6
+           ;; 8 0 80 0 -40 45 0 0 ;; before Humanoids2016
+           )))
+
+;; pose2
+(defun pose2 ()
+(send *ri* :angle-vector
+        ;; rleg_joint0~5 (<legs> crotch-y,r,p / knee-p / ankle-p, r)
+        ;; lleg_joint0~5
+        ;; chest_joint0~2 (<torso> waist-r,p,y) head_joint0~1 (<head> neck-y,p)
+        ;; rarm_joint0~6 (<arms> collar-y shoulder-p,r,y elbow-p wrist-y,r,p)
+        ;; larm_joint0~6
+        ;; angle-vector of pose1
+      #f(5.96116 -17.3268 -41.4895 76.9899 -34.6405 16.8142 50.2142 27.6913 -43.417 53.2275 -8.74364 -27.4784 4.80211 14.6122 -10.6716 22.4 0.0 -3.70715 -48.6773 -48.9095 2.77695 -118.559 -30.0848 -31.8118 1.9412 8.0 0.0 80.0 0.0 -40.0 45.0 0.0 0.0)))
+
+;; pose3
+(defun pose3 ()
+(send *ri* :angle-vector
+        ;; rleg_joint0~5 (<legs> crotch-y,r,p / knee-p / ankle-p, r)
+        ;; lleg_joint0~5
+        ;; chest_joint0~2 (<torso> waist-r,p,y) head_joint0~1 (<head> neck-y,p)
+        ;; rarm_joint0~6 (<arms> collar-y shoulder-p,r,y elbow-p wrist-y,r,p)
+        ;; larm_joint0~6
+        ;; angle-vector of pose2
+        #f(-0.851399 -25.3628 -43.6886 81.0988 -37.0053 23.9976 43.4412 23.4412 -52.1147 73.8623 -20.4123 -24.1527
+           4.69939 17.9085 19.7456 22.4 0.0
+           13.9379 -1.29912 -50.4969 -82.3214 -80 -71.956 -85.2512 16.7357
+           5.0 20.0 50.0 0.0 -100.0 45.0 0.0 0.0)))
+
+;; pose4
+(defun pose4 ()
+(send *ri* :angle-vector
+        ;; rleg_joint0~5 (<legs> crotch-y,r,p / knee-p / ankle-p, r)
+        ;; lleg_joint0~5
+        ;; chest_joint0~2 (<torso> waist-r,p,y) head_joint0~1 (<head> neck-y,p)
+        ;; rarm_joint0~6 (<arms> collar-y shoulder-p,r,y elbow-p wrist-y,r,p)
+        ;; larm_joint0~6
+        ;; angle-vector of pose3
+      #f(-9.13176 -24.5612 -39.3477 78.5497 -37.9731 24.8068 35.0836 24.0268 -53.3272 75.0331 -21.027 -23.0677 4.6512 14.1216 23.3492 22.4 0.0 17.0316 -30.8319 -17.8012 17.7639 -78.7638 -98.9432 -43.7087 -4.6911 5.0 20.0 50.0 0.0 -100.0 45.0 0.0 0.0)))
+
+
+;; pose5
+(defun pose5 ()
+(send *ri* :angle-vector
+        ;; rleg_joint0~5 (<legs> crotch-y,r,p / knee-p / ankle-p, r)
+        ;; lleg_joint0~5
+        ;; chest_joint0~2 (<torso> waist-r,p,y) head_joint0~1 (<head> neck-y,p)
+        ;; rarm_joint0~6 (<arms> collar-y shoulder-p,r,y elbow-p wrist-y,r,p)
+        ;; larm_joint0~6
+        #f(0.0 0.0 -20.0 60.0 -20.0 0.0
+           0.0 0.0 -20.0 60.0 -20.0 0.0
+           0 15 0 20 0
+           30.0 -30.0 -48.4355 5.0 -80.0 -30.0 0.0 0.0 -30.0 -30.0 40.0 -5.0 -80.0 0.0 0.0 0.0)
+        ))

@@ -16,11 +16,12 @@
 
 (defun walk()
   (send *ri* :start-log)
-  (send *ri* :go-velocity 0.9 0 0)
+  (send *ri* :go-velocity 0.5 0 0)
+  ;; (send *ri* :save-log "/tmp/for_si_latest")
   )
 (defun stop()
-  (send *ri* :save-log "/tmp/latest")
   ;; 歩き終わるまで待つプログラムにするやつ。なんだっけ？シーケンシャルなんとかみたいな
   ;; 歩く速度をwalkの引数にして、動かせるようにすると便利かも(advance)
+  (send *ri* :save-log "/tmp/for_si_latest")  
   )
 
