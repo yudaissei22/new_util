@@ -57,7 +57,7 @@ send *ri* :stop-impedance :arms
   (setq *exp-tm-ms1* (make-list seq-num))
   (setq *exp-rc1* (make-list seq-num)) 
   (setq *exp-optional1* (make-list seq-num))
-  (ast-make-sequence-in-advance
+  (ast-make-sequence-in-advance-without-zmp
    *exp-jpos-deg1* *exp-tm-ms1* *exp-rc1* *exp-optional1*
    :step step :x-max t-max)
   )

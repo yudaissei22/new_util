@@ -1,8 +1,3 @@
-;; angle-vectorを送ればよいので、それをchoreonoidに送るためのプログラムを書く。
-
-(load "package://msl_hand_controller/euslisp/jaxon_red-interface.l")
-(load "package://auto_stabilizer/euslisp/auto-stabilizer-interface.l")
-
 (defun experiment-init ()
   (setq *robot* *jaxon_red*)  
   (send *ri* :set-st-param :emergency-check-mode 0)
@@ -56,23 +51,22 @@
    (link-list-with-robot-6dof *robot* (list (cdr (send *robot* :links)))
                               :joint-class 6dof-joint))
 
-  (replace jpos-deg (copy-object *bspline-av-list*))
+  (setq tmp (copy-object *bspline-av-list*))
+  ;; mslの12自由度を後から追加
+  (setq *new-bspline-av-list*
+	(mapcar
+	 #'(lambda (av)
+	     (setq av (concatenate float-vector av #f(-50 0 70 0 100 100 0 0 0 0 0 0)))
+	     )
+	 tmp)
+	 )
+  (replace jpos-deg (copy-object *new-bspline-av-list*))
   (replace tm-ms (copy-object *bspline-tm-list*))
   (replace rc (copy-object *bspline-rc-list*))
   (replace optional (copy-object *bspline-optional-list*))
   (format t "replace is done~%")
   
   nil
-  )
-
-(defun add-msl ()
-  (setq *bspline-av-list*
-	(mapcar
-	 #'(lambda (av)
-	     (setq av (concatenate float-vector av #f(-50 0 70 0 100 100 0 0 0 0 0 0)))
-	     )
-	 *bspline-av-list*)
-	 )
   )
 
 
