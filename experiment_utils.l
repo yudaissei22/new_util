@@ -1,5 +1,5 @@
 (defun experiment-init ()
-  (setq *robot* *jaxon_red*)  
+  (setq *robot* *jaxon*)  
   (send *ri* :set-st-param :emergency-check-mode 0)
   (send *ri* :set-interpolation-mode :linear)
   )
@@ -16,6 +16,31 @@
   (send *ri* :wait-interpolation)
   (send *ri* :angle-vector-sequence-full jpos tm :root-coords rc :optional optional)
   )
+
+
+(defun experiment-angle-vector-sequence-full
+  (jpos tm rc zmp optional
+   &key (initial-time 10000) (final-time 5000) (log-fname "/tmp/angle-vector-sequence-full"))
+
+  ;;(send *ri* :set-interpolation-mode :linear)
+  (send *ri* :start-log)
+  (send-angle-vector-sequence-full jpos tm rc zmp optional initial-time)
+  (send *ri* :wait-interpolation-seq)
+  (unix:usleep (* final-time 1000))
+  (send *ri* :save-log log-fname)
+  ;;(send *ri* :set-interpolation-mode :hoffarbib)
+  )
+(defun experiment-angle-vector-sequence-full-without-zmp
+  (jpos tm rc optional
+   &key (initial-time 10000) (final-time 5000) (log-fname "/tmp/angle-vector-sequence-full"))
+
+  (send *ri* :start-log)
+  (send-angle-vector-sequence-full jpos tm rc optional initial-time)
+  (send *ri* :wait-interpolation-seq)
+  (unix:usleep (* final-time 1000))
+  (send *ri* :save-log log-fname)
+  )
+
 
 (defun ast-make-sequence-in-advance
   (jpos-deg tm-ms rc zmp-wc optional   
@@ -68,6 +93,3 @@
   
   nil
   )
-
-
-
