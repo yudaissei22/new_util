@@ -17,6 +17,12 @@
   (send *ri* :angle-vector-sequence-full jpos tm :root-coords rc :optional optional)
   )
 
+(defun send-angle-vector-sequence-full-without-zmp-rc (jpos tm optional &optional (initial-time 10000))
+  (send *ri* :angle-vector (send *robot* :angle-vector (car jpos)) initial-time) ;; initial-timeまでに最初の姿勢にする
+  (send *ri* :wait-interpolation)
+  (send *ri* :angle-vector-sequence-full jpos tm :optional optional)
+  )
+
 
 (defun experiment-angle-vector-sequence-full
   (jpos tm rc zmp optional
@@ -36,6 +42,17 @@
 
   (send *ri* :start-log)
   (send-angle-vector-sequence-full jpos tm rc optional initial-time)
+  (send *ri* :wait-interpolation-seq)
+  (unix:usleep (* final-time 1000))
+  (send *ri* :save-log log-fname)
+  )
+
+(defun experiment-angle-vector-sequence-full-without-zmp-rc
+  (jpos tm optional
+   &key (initial-time 10000) (final-time 5000) (log-fname "/tmp/angle-vector-sequence-full"))
+
+  (send *ri* :start-log)
+  (send-angle-vector-sequence-full-without-zmp-rc jpos tm optional initial-time)
   (send *ri* :wait-interpolation-seq)
   (unix:usleep (* final-time 1000))
   (send *ri* :save-log log-fname)

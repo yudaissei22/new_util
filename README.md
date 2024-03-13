@@ -87,3 +87,12 @@ send *ri* :stop-impedance :arms
 ```
 (experiment-angle-vector-sequence-full-without-zmp (list (car *exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-rc1*)) (list (car *exp-optional1*)) :initial-time 30000 :final-time 0 :log-fname "/tmp/init")
 ```
+
+# rcなし
+```
+(experiment-angle-vector-sequence-full-without-zmp-rc *exp-jpos-deg1* *exp-tm-ms1* *exp-rc1* *exp-optional1* :initial-time 30000 :final-time 5000 :log-fname "/log_nlopt/angle-vector-sequence-full") 
+```
+
+```
+(experiment-angle-vector-sequence-full-without-zmp-rc (list (car *exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-rc1*)) (list (car *exp-optional1*)) :initial-time 30000 :final-time 0 :log-fname "/tmp/init")
+```
