@@ -63,7 +63,8 @@ send *ri* :stop-impedance :arms
   )
 ```
 
-# ZMPとRC(root-coords)を抜いたversion
+# ZMPとRC(root-coords)を抜いたversionです。
+
 ```
 (let* ((t-max *x-max-of-p-orig*) (step 0.05) (seq-num (round (+ 1 (/ t-max step)))))
   (setq *exp-jpos-deg1* (make-list seq-num))
