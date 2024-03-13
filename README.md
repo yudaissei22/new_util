@@ -119,3 +119,7 @@ tm-new 5
 ```
 (experiment-angle-vector-sequence-full-without-zmp-rc *exp-jpos-deg1* tm-list *exp-optional1* :initial-time 20000 :final-time 5000 :log-fname "/tmp/angle-vector-sequence-full") 
 ```
+
+```
+(send *ri* :angle-vector (send *robot* :angle-vector (car *exp-jpos-deg1*)) 20000)
+```
