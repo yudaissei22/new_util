@@ -1,5 +1,5 @@
 (defun experiment-init ()
-  (setq *robot* *jaxon_red*)  
+1;5202;0c  (setq *robot* *jaxon_red*)  
   (send *ri* :set-st-param :emergency-check-mode 0)
   (send *ri* :set-interpolation-mode :linear)
   )
@@ -151,19 +151,19 @@
   nil
   )
 
-(defun tm-times (n)
-  (setq tmp '())
-  (setq tmp (copy-object *bspline-tm-list*))
+;; (defun tm-times (n)
+;;   (setq tmp '())
+;;   (setq tmp (copy-object *bspline-tm-list*))
   
-  (setq tm-list
-	(mapcar
-	 #'(lambda (tm)
-	     (setq tm (* (* tm n) 1e0)
-		   )
-	     )
-	 tmp)
-	)
-  )
+;;   (setq tm-list
+;; 	(mapcar
+;; 	 #'(lambda (tm)
+;; 	     (setq tm (* (* tm n) 1e0)
+;; 		   )
+;; 	     )
+;; 	 tmp)
+;; 	)
+;;   )
 
 
    
