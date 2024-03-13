@@ -96,3 +96,15 @@ send *ri* :stop-impedance :arms
 ```
 (experiment-angle-vector-sequence-full-without-zmp-rc (list (car *exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-optional1*)) :initial-time 30000 :final-time 0 :log-fname "/tmp/init")
 ```
+
+
+# new version
+
+```
+tm-times 5
+```
+で、時間のリストを長くする。
+
+```
+(experiment-angle-vector-sequence-full-without-zmp-rc *bspline-av-list* tm-list *bspline-optional-list* :initial-time 30000 :final-time 5000 :log-fname "/tmp/angle-vector-sequence-full") 
+```

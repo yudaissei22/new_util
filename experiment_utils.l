@@ -82,23 +82,6 @@
   nil
   )
 
-(defun ast-make-sequence-in-advance-without-zmp-rc
-  (jpos-deg tm-ms optional   
-            &key
-            (step 0.1)
-            (x-max *x-max*)
-            )
-  
-  (send *robot* :move-to (make-coords) :world)
-  (with-append-root-joint
-   (link-list-with-robot-6dof *robot* (list (cdr (send *robot* :links)))
-                              :joint-class 6dof-joint))
-
-  (replace jpos-deg (copy-object *bspline-av-list*))
-  (replace tm-ms (copy-object *bspline-tm-list*))
-  (replace optional (copy-object *bspline-optional-list*))
-  nil
-  )
 
 (defun ast-make-sequence-in-advance-without-zmp
   (jpos-deg tm-ms rc optional   
@@ -117,7 +100,7 @@
   (setq *new-bspline-av-list*
 	(mapcar
 	 #'(lambda (av)
-	     (setq av (concatenate float-vector av #f(-50 0 70 0 100 100 0 0 0 0 0 0)))
+	     (setq av (concatenate float-vector av #f(-50 0 70 0 100 0 0 0 0 0 0 0)))
 	     )
 	 tmp)
 	)
@@ -135,7 +118,7 @@
 (defun ast-make-sequence-in-advance-without-zmp-rc
   (jpos-deg tm-ms optional   
             &key
-            (step 0.1)
+            (step 0.01)
             (x-max *x-max*)
             )
   (send *robot* :move-to (make-coords) :world)
@@ -143,18 +126,46 @@
    (link-list-with-robot-6dof *robot* (list (cdr (send *robot* :links)))
                               :joint-class 6dof-joint))
 
+  0.01sで作られた、av-list,tmがある。
+  これをn倍して、その間を補完したい。
+  
+  
   (setq tmp (copy-object *bspline-av-list*))
   ;; mslの12自由度を後から追加
   (setq *new-bspline-av-list*
 	(mapcar
 	 #'(lambda (av)
-	     (setq av (concatenate float-vector av #f(-50 0 70 0 100 100 0 0 0 0 0 0)))
+	     (setq av (concatenate float-vector av #f(-50 0 70 0 100 0 0 0 0 0 0 0)))
 	     )
 	 tmp)
 	)
   (replace jpos-deg (copy-object *new-bspline-av-list*))
+  (format t "nice")
+  
+
+  ;; (setq time-tmp (copy-object *bspline-tm-list*))
+  ;; (setq *bspline-avsf-tm-ms* (make-list (length time-tmp) :initial-element (* 1e3 s\)))
   (replace tm-ms (copy-object *bspline-tm-list*))
+  (setq tm-ms )
+	
   (replace optional (copy-object *bspline-optional-list*))
   
   nil
   )
+
+(defun tm-times (n)
+  (setq tmp '())
+  (setq tmp (copy-object *bspline-tm-list*))
+  
+  (setq tm-list
+	(mapcar
+	 #'(lambda (tm)
+	     (setq tm (* (* tm n) 1e3)
+		   )
+	     )
+	 tmp)
+	)
+  )
+
+
+   
