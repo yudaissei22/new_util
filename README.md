@@ -112,6 +112,10 @@ send *ri* :stop-impedance :arms
 ```
 
 ```
+(send *ri* :set-interpolation-mode :linear)
+```
+
+```
 tm-new 5
 ```
 で、時間のリストを長くする。

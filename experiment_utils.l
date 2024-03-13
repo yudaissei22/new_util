@@ -50,6 +50,7 @@
 (defun experiment-angle-vector-sequence-full-without-zmp-rc
   (jpos tm optional
    &key (initial-time 10000) (final-time 5000) (log-fname "/tmp/angle-vector-sequence-full"))
+  ;; (send *ri* :set-interpolation-mode :linear)
 
   (send *ri* :start-log)
   (send-angle-vector-sequence-full-without-zmp-rc jpos tm optional initial-time)
