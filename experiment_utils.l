@@ -1,5 +1,5 @@
 (defun experiment-init ()
-  (setq *robot* *jaxon*)  
+  (setq *robot* *jaxon_red*)  
   (send *ri* :set-st-param :emergency-check-mode 0)
   (send *ri* :set-interpolation-mode :linear)
   )
@@ -65,8 +65,58 @@
   nil
   )
 
+(defun ast-make-sequence-in-advance-without-zmp-rc
+  (jpos-deg tm-ms optional   
+            &key
+            (step 0.1)
+            (x-max *x-max*)
+            )
+  
+  (send *robot* :move-to (make-coords) :world)
+  (with-append-root-joint
+   (link-list-with-robot-6dof *robot* (list (cdr (send *robot* :links)))
+                              :joint-class 6dof-joint))
+
+  (replace jpos-deg (copy-object *bspline-av-list*))
+  (replace tm-ms (copy-object *bspline-tm-list*))
+  (replace optional (copy-object *bspline-optional-list*))
+  nil
+  )
+
 (defun ast-make-sequence-in-advance-without-zmp
   (jpos-deg tm-ms rc optional   
+            &key
+            (step 0.1)
+            (x-max *x-max*)
+            )
+  (send *robot* :move-to (make-coords) :world)
+  (with-append-root-joint
+   (link-list-with-robot-6dof *robot* (list (cdr (send *robot* :links)))
+                              :joint-class 6dof-joint))
+
+  (setq tmp (copy-object *bspline-av-list*))
+  (format t "length of tmp is ~s~%" (length (car tmp)))
+  ;; mslの12自由度を後から追加
+  (setq *new-bspline-av-list*
+	(mapcar
+	 #'(lambda (av)
+	     (setq av (concatenate float-vector av #f(-50 0 70 0 100 100 0 0 0 0 0 0)))
+	     )
+	 tmp)
+	)
+  (format t "length of *new-bspline-av-list* is ~s~%" (length (car *new-bspline-av-list*)))  
+  (replace jpos-deg (copy-object *new-bspline-av-list*))
+  (format t "lenght of jpos-deg is ~s~%" (length (car jpos-deg)))
+  (replace tm-ms (copy-object *bspline-tm-list*))
+  (replace rc (copy-object *bspline-rc-list*))
+  (replace optional (copy-object *bspline-optional-list*))
+  (format t "replace is done~%")
+  
+  nil
+  )
+
+(defun ast-make-sequence-in-advance-without-zmp-rc
+  (jpos-deg tm-ms optional   
             &key
             (step 0.1)
             (x-max *x-max*)
@@ -84,12 +134,10 @@
 	     (setq av (concatenate float-vector av #f(-50 0 70 0 100 100 0 0 0 0 0 0)))
 	     )
 	 tmp)
-	 )
+	)
   (replace jpos-deg (copy-object *new-bspline-av-list*))
   (replace tm-ms (copy-object *bspline-tm-list*))
-  (replace rc (copy-object *bspline-rc-list*))
   (replace optional (copy-object *bspline-optional-list*))
-  (format t "replace is done~%")
   
   nil
   )
