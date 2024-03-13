@@ -10,10 +10,10 @@ roseus ~~
 
 0. 前処理
 ```
-(load "package://rhp3hand_ros_bridge_tutorials/euslisp/jaxon-interface.l")
+(load "package://msl_hand_controller/euslisp/jaxon_red-interface.l")
 (load "package://auto_stabilizer/euslisp/auto-stabilizer-interface.l")
-(jaxon-init)
-(setq *robot* *jaxon*)
+(jaxon_red-init)
+(setq *robot* *jaxon_red*)
 ```
 
 * 空のlistを作ってから、sequenceに値をいれる
@@ -81,7 +81,7 @@ send *ri* :stop-impedance :arms
 * スイング
 
 ```
-(experiment-angle-vector-sequence-full-without-zmp *exp-jpos-deg1* *exp-tm-ms1* *exp-rc1* *exp-optional1* :initial-time 30000 :final-time 5000 :log-fname "/log_nlopt/angle-vector-sequence-full") 
+(experiment-angle-vector-sequence-full-without-zmp *exp-jpos-deg1* *exp-tm-ms1* *exp-rc1* *exp-optional1* :initial-time 30000 :final-time 5000 :log-fname "/tmp/angle-vector-sequence-full") 
 ```
 
 ```
@@ -90,9 +90,9 @@ send *ri* :stop-impedance :arms
 
 # rcなし
 ```
-(experiment-angle-vector-sequence-full-without-zmp-rc *exp-jpos-deg1* *exp-tm-ms1* *exp-rc1* *exp-optional1* :initial-time 30000 :final-time 5000 :log-fname "/log_nlopt/angle-vector-sequence-full") 
+(experiment-angle-vector-sequence-full-without-zmp-rc *exp-jpos-deg1* *exp-tm-ms1* *exp-optional1* :initial-time 30000 :final-time 5000 :log-fname "/tmp/angle-vector-sequence-full") 
 ```
 
 ```
-(experiment-angle-vector-sequence-full-without-zmp-rc (list (car *exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-rc1*)) (list (car *exp-optional1*)) :initial-time 30000 :final-time 0 :log-fname "/tmp/init")
+(experiment-angle-vector-sequence-full-without-zmp-rc (list (car *exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-optional1*)) :initial-time 30000 :final-time 0 :log-fname "/tmp/init")
 ```
