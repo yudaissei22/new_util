@@ -126,8 +126,8 @@
    (link-list-with-robot-6dof *robot* (list (cdr (send *robot* :links)))
                               :joint-class 6dof-joint))
 
-  0.01sで作られた、av-list,tmがある。
-  これをn倍して、その間を補完したい。
+  ;; 0.01sで作られた、av-list,tmがある。
+  ;; これをn倍して、その間を補完したい。
   
   
   (setq tmp (copy-object *bspline-av-list*))
@@ -144,9 +144,7 @@
   
 
   ;; (setq time-tmp (copy-object *bspline-tm-list*))
-  ;; (setq *bspline-avsf-tm-ms* (make-list (length time-tmp) :initial-element (* 1e3 s\)))
   (replace tm-ms (copy-object *bspline-tm-list*))
-  (setq tm-ms )
 	
   (replace optional (copy-object *bspline-optional-list*))
   
@@ -160,7 +158,7 @@
   (setq tm-list
 	(mapcar
 	 #'(lambda (tm)
-	     (setq tm (* (* tm n) 1e3)
+	     (setq tm (* (* tm n) 1e0)
 		   )
 	     )
 	 tmp)
@@ -169,3 +167,11 @@
 
 
    
+(defun tm-new (n)
+  (setq tmp '())
+  (setq tmp (copy-object *bspline-tm-list*))
+  (setq original-step 0.01)
+  
+  (setq tm-list (make-list (length *bspline-tm-list*) :initial-element (* 1e3 (* original-step n))))
+  
+  )

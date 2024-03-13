@@ -101,10 +101,21 @@ send *ri* :stop-impedance :arms
 # new version
 
 ```
-tm-times 5
+(let* ((t-max *x-max-of-p-orig*) (step 0.01) (seq-num (round (+ 1 (/ t-max step)))))
+  (setq *exp-jpos-deg1* (make-list seq-num))
+  (setq *exp-tm-ms1* (make-list seq-num))
+  (setq *exp-optional1* (make-list seq-num))
+  (ast-make-sequence-in-advance-without-zmp-rc
+   *exp-jpos-deg1* *exp-tm-ms1* *exp-optional1*
+   :step step :x-max t-max)
+  )
+```
+
+```
+tm-new 5
 ```
 で、時間のリストを長くする。
 
 ```
-(experiment-angle-vector-sequence-full-without-zmp-rc *bspline-av-list* tm-list *bspline-optional-list* :initial-time 30000 :final-time 5000 :log-fname "/tmp/angle-vector-sequence-full") 
+(experiment-angle-vector-sequence-full-without-zmp-rc *exp-jpos-deg1* tm-list *exp-optional1* :initial-time 20000 :final-time 5000 :log-fname "/tmp/angle-vector-sequence-full") 
 ```
