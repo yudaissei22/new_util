@@ -10,11 +10,26 @@ roseus ~~
 
 0. 前処理
 ```
-(load "package://rhp3hand_ros_bridge_tutorials/euslisp/jaxon-interface.l")
-(load "package://auto_stabilizer/euslisp/auto-stabilizer-interface.l")
-(jaxon-init)
-(setq *robot* *jaxon*)
+red-init
 ```
+
+```
+(send *ri* :set-auto-stabilizer-param :is-emergency-step-mode nil) 
+```
+
+```
+(send *ri* :set-interpolation-mode :linear)
+```
+
+```
+send *ri* :stop-auto-balancer
+```
+
+```
+send *ri* :stop-impedance :arms
+
+```
+
 
 * 空のlistを作ってから、sequenceに値をいれる
 ```
@@ -30,14 +45,6 @@ roseus ~~
   )
 ```
 
-```
-send *ri* :stop-auto-balancer
-```
-
-```
-send *ri* :stop-impedance :arms
-
-```
 * スイング
 ```
 (experiment-angle-vector-sequence-full *exp-jpos-deg1* *exp-tm-ms1* *exp-rc1* *exp-zmp-wc1* *exp-optional1* :initial-time 30000 :final-time 5000 :log-fname "/tmp/angle-vector-sequence-full") 
@@ -66,22 +73,6 @@ angle-vectorには確かzmpやrcの値は読んでなくて、angle-vectorしか
 ```
 
 # ZMPとRC(root-coords)を抜いたversion
-
-
-1. 値を
-
-* スイングの最初の姿勢に30sかけて移動
-```
-(experiment-angle-vector-sequence-full-without-zmp (list (car *exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-rc1*)) (list (car *exp-optional1*)) :initial-time 10000 :final-time 0 :log-fname "/home/leus/yuda_log/")
-```
-
-* スイングを行う
-```
-(experiment-angle-vector-sequence-full-without-zmp *exp-jpos-deg1* *exp-tm-ms1* *exp-rc1* *exp-optional1* :initial-time 10000 :final-time 5000 :log-fname "/home/leus/yuda_log/") 
-```
-
-
-残骸
 ```
 (let* ((t-max *x-max-of-p-orig*) (step 0.05) (seq-num (round (+ 1 (/ t-max step)))))
   (setq *exp-jpos-deg1* (make-list seq-num))
@@ -92,3 +83,25 @@ angle-vectorには確かzmpやrcの値は読んでなくて、angle-vectorしか
    :step step :x-max t-max)
   )
 ```
+1. 値を
+
+* スイングの最初の姿勢に30sかけて移動
+```
+(experiment-angle-vector-sequence-full-without-zmp-rc (list (car *exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-rc1*)) (list (car *exp-optional1*)) :initial-time 10000 :final-time 0 :log-fname "/tmp/yuda_log/")
+```
+
+* スイングを行う
+```
+(experiment-angle-vector-sequence-full-without-zmp-rc *exp-jpos-deg1* *exp-tm-ms1* *exp-rc1* *exp-optional1* :initial-time 10000 :final-time 5000 :log-fname "/tmp/yuda_log/") 
+```
+# ZMPとRCの両方を抜いたversion
+```
+(experiment-angle-vector-sequence-full-without-zmp-rc (list (car *exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-optional1*)) :initial-time 10000 :final-time 0 :log-fname "/tmp/yuda_log/")
+```
+
+* スイングを行う
+```
+(experiment-angle-vector-sequence-full-without-zmp-rc *exp-jpos-deg1* *exp-tm-ms1* *exp-optional1* :initial-time 10000 :final-time 5000 :log-fname "/tmp/yuda_log/") 
+```
+
+

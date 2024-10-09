@@ -8,6 +8,7 @@
 
 (defun experiment-init ()
   ;; (send *ri* :set-st-param :emergency-check-mode 0)
+  ;;一個づつ読んだほうがよい。
   (send *ri* :set-auto-stabilizer-param :is-emergency-step-mode nil)
   ;; 寺澤さんはstabilizer使っていた。
   (send *ri* :set-interpolation-mode :linear)
