@@ -50,6 +50,8 @@ send *ri* :stop-impedance :arms
 
 
 # ZMPを抜いたversion
+angle-vectorには確かzmpやrcの値は読んでなくて、angle-vectorしか引数として処理していなかった気がする。
+
 0. 空のリストを作り、中に値を入れていく。
 ```
 (let* ((t-max *x-max-of-p-orig*) (step 0.05) (seq-num (round (+ 1 (/ t-max step)))))
@@ -61,8 +63,25 @@ send *ri* :stop-impedance :arms
    *exp-jpos-deg1* *exp-tm-ms1* *exp-rc1* *exp-optional1*
    :step step :x-max t-max)
   )
+```
 
 # ZMPとRC(root-coords)を抜いたversion
+
+
+1. 値を
+
+* スイングの最初の姿勢に30sかけて移動
+```
+(experiment-angle-vector-sequence-full-without-zmp (list (car *exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-rc1*)) (list (car *exp-optional1*)) :initial-time 10000 :final-time 0 :log-fname "/home/leus/yuda_log/")
+```
+
+* スイングを行う
+```
+(experiment-angle-vector-sequence-full-without-zmp *exp-jpos-deg1* *exp-tm-ms1* *exp-rc1* *exp-optional1* :initial-time 10000 :final-time 5000 :log-fname "/home/leus/yuda_log/") 
+```
+
+
+残骸
 ```
 (let* ((t-max *x-max-of-p-orig*) (step 0.05) (seq-num (round (+ 1 (/ t-max step)))))
   (setq *exp-jpos-deg1* (make-list seq-num))
@@ -73,21 +92,3 @@ send *ri* :stop-impedance :arms
    :step step :x-max t-max)
   )
 ```
-
-```
-1. 値を
-
-* スイング
-
-```
-(experiment-angle-vector-sequence-full-without-zmp *exp-jpos-deg1* *exp-tm-ms1* *exp-rc1* *exp-optional1* :initial-time 30000 :final-time 5000 :log-fname "/log_nlopt/angle-vector-sequence-full") 
-```
-
-```
-(experiment-angle-vector-sequence-full-without-zmp (list (car *exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-rc1*)) (list (car *exp-optional1*)) :initial-time 30000 :final-time 0 :log-fname "/tmp/init")
-```
-
-
-
-
-
