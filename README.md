@@ -61,7 +61,7 @@ angle-vectorには確かzmpやrcの値は読んでなくて、angle-vectorしか
 
 0. 空のリストを作り、中に値を入れていく。
 ```
-(let* ((t-max *x-max-of-p-orig*) (step 0.05) (seq-num (round (+ 1 (/ t-max step)))))
+(let* ((t-max *t-set*) (step 0.01) (seq-num (round (+ 1 (/ t-max step)))))
   (setq *exp-jpos-deg1* (make-list seq-num))
   (setq *exp-tm-ms1* (make-list seq-num))
   (setq *exp-rc1* (make-list seq-num)) 
@@ -74,7 +74,7 @@ angle-vectorには確かzmpやrcの値は読んでなくて、angle-vectorしか
 
 # ZMPとRC(root-coords)を抜いたversion
 ```
-(let* ((t-max *x-max-of-p-orig*) (step 0.05) (seq-num (round (+ 1 (/ t-max step)))))
+(let* ((t-max *t-set*) (step 0.01) (seq-num (round (+ 1 (/ t-max step)))))
   (setq *exp-jpos-deg1* (make-list seq-num))
   (setq *exp-tm-ms1* (make-list seq-num))
   (setq *exp-optional1* (make-list seq-num))
