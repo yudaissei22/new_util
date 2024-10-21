@@ -105,3 +105,14 @@ angle-vectorには確かzmpやrcの値は読んでなくて、angle-vectorしか
 ```
 
 
+* 正しく引き伸ばせたであろうversion
+```
+(let* ((t-max *t-set*) (step 0.01) (seq-num (round (+ 1 (/ t-max step)))))
+  (setq *exp-jpos-deg1* (make-list seq-num))
+  (setq *exp-tm-ms1* (make-list seq-num))
+  (setq *exp-optional1* (make-list seq-num))
+  (make-sequence-in-advance-without-zmp-rc
+   *exp-jpos-deg1* *exp-tm-ms1* *exp-optional1*
+   :step step :x-max t-max)
+  )
+```  
