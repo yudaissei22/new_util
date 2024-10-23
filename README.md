@@ -47,6 +47,10 @@ load "forehand/jerk/hoge.l
 
 ---
 
+---
+
+---
+
 * 正しく引き伸ばせたであろうversion
 ```
 (let* ((t-max *t-set*) (step 0.01) (seq-num (round (+ 1 (/ t-max step)))))
