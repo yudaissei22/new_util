@@ -78,7 +78,7 @@ angle-vectorには確かzmpやrcの値は読んでなくて、angle-vectorしか
   (setq *exp-jpos-deg1* (make-list seq-num))
   (setq *exp-tm-ms1* (make-list seq-num))
   (setq *exp-optional1* (make-list seq-num))
-  (ast-make-sequence-in-advance-without-zmp-rc
+  (make-sequence-in-advance-without-zmp-rc
    *exp-jpos-deg1* *exp-tm-ms1* *exp-optional1*
    :step step :x-max t-max)
   )
