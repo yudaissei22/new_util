@@ -37,12 +37,12 @@ load "forehand/jerk/hoge.l
 
 # ZMPとRCの両方を抜いたversion
 ```
-(experiment-angle-vector-sequence-full-without-zmp-rc (list (car *new-exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-optional1*)) :initial-time 10000 :final-time 0 :log-fname "/tmp/yuda_log/")
+(experiment-angle-vector-sequence-full-without-zmp-rc (list (car *new-exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-optional1*)) :initial-time 10000 :final-time 0 :log-fname "/tmp/yuda_log")
 ```
 
 * スイングを行う
 ```
-(experiment-angle-vector-sequence-full-without-zmp-rc *new-exp-jpos-deg1* *exp-tm-ms1* *exp-optional1* :initial-time 10000 :final-time 5000 :log-fname "/tmp/yuda_log/") 
+(experiment-angle-vector-sequence-full-without-zmp-rc *new-exp-jpos-deg1* *exp-tm-ms1* *exp-optional1* :initial-time 10000 :final-time 5000 :log-fname "/tmp/yuda_log") 
 ```
 
 ---
