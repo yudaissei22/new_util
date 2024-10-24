@@ -10,7 +10,18 @@ roseus ~~
 
 0. 前処理
 ```
-red-init
+(red-init)
+```
+```
+(send *ri* :start-auto-balancer)
+```
+
+```
+(send *ri* :start-stabilizer)
+```
+
+```
+(send *ri* :stop-auto-balancer)
 ```
 
 ```
@@ -22,46 +33,9 @@ red-init
 ```
 
 ```
-send *ri* :stop-auto-balancer
+(send *ri* :stop-impedance :arms)
 ```
 
-```
-send *ri* :stop-impedance :arms
-
-```
-
-1. 値立ちをロードする
-```
-load "forehand/jerk/hoge.l
-```
-
-# ZMPとRCの両方を抜いたversion
-```
-(experiment-angle-vector-sequence-full-without-zmp-rc (list (car *new-exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-optional1*)) :initial-time 10000 :final-time 0 :log-fname "/tmp/yuda_log")
-```
-
-* スイングを行う
-```
-(experiment-angle-vector-sequence-full-without-zmp-rc *new-exp-jpos-deg1* *exp-tm-ms1* *exp-optional1* :initial-time 10000 :final-time 5000 :log-fname "/tmp/yuda_log") 
-```
-
----
-
----
-
----
-
-* 正しく引き伸ばせたであろうversion
-```
-(let* ((t-max *t-set*) (step 0.01) (seq-num (round (+ 1 (/ t-max step)))))
-  (setq *exp-jpos-deg1* (make-list seq-num))
-  (setq *exp-tm-ms1* (make-list seq-num))
-  (setq *exp-optional1* (make-list seq-num))
-  (make-sequence-in-advance-without-zmp-rc
-   *exp-jpos-deg1* *exp-tm-ms1* *exp-optional1*
-   :step step :x-max t-max)
-  )
-```  
 
 * 空のlistを作ってから、sequenceに値をいれる
 ```
@@ -126,3 +100,25 @@ angle-vectorには確かzmpやrcの値は読んでなくて、angle-vectorしか
 ```
 (experiment-angle-vector-sequence-full-without-zmp-rc *exp-jpos-deg1* *exp-tm-ms1* *exp-optional1* :initial-time 10000 :final-time 5000 :log-fname "/tmp/yuda_log/")	
 ```
+# ZMPとRCの両方を抜いたversion
+```
+(experiment-angle-vector-sequence-full-without-zmp-rc (list (car *new-exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-optional1*)) :initial-time 10000 :final-time 0 :log-fname "/tmp/yuda_log/")
+```
+
+* スイングを行う
+```
+(experiment-angle-vector-sequence-full-without-zmp-rc *new-exp-jpos-deg1* *exp-tm-ms1* *exp-optional1* :initial-time 10000 :final-time 5000 :log-fname "/home_log/") 
+```
+
+
+* 正しく引き伸ばせたであろうversion
+```
+(let* ((t-max *t-set*) (step 0.01) (seq-num (round (+ 1 (/ t-max step)))))
+  (setq *exp-jpos-deg1* (make-list seq-num))
+  (setq *exp-tm-ms1* (make-list seq-num))
+  (setq *exp-optional1* (make-list seq-num))
+  (make-sequence-in-advance-without-zmp-rc
+   *exp-jpos-deg1* *exp-tm-ms1* *exp-optional1*
+   :step step :x-max t-max)
+  )
+```  
