@@ -12,13 +12,6 @@ roseus ~~
 ```
 (red-init)
 ```
-```
-(send *ri* :start-auto-balancer)
-```
-
-```
-(send *ri* :start-stabilizer)
-```
 
 ```
 (send *ri* :stop-auto-balancer)
@@ -34,6 +27,17 @@ roseus ~~
 
 ```
 (send *ri* :stop-impedance :arms)
+```
+
+
+# ZMPとRCの両方を抜いたversion
+```
+(experiment-angle-vector-sequence-full-without-zmp-rc (list (car *new-exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-optional1*)) :initial-time 10000 :final-time 0 :log-fname "/tmp/yuda_log/")
+```
+
+* スイングを行う
+```
+(experiment-angle-vector-sequence-full-without-zmp-rc *new-exp-jpos-deg1* *exp-tm-ms1* *exp-optional1* :initial-time 10000 :final-time 5000 :log-fname "/home_log/") 
 ```
 
 
@@ -99,15 +103,6 @@ angle-vectorには確かzmpやrcの値は読んでなくて、angle-vectorしか
 * スイングを行う
 ```
 (experiment-angle-vector-sequence-full-without-zmp-rc *exp-jpos-deg1* *exp-tm-ms1* *exp-optional1* :initial-time 10000 :final-time 5000 :log-fname "/tmp/yuda_log/")	
-```
-# ZMPとRCの両方を抜いたversion
-```
-(experiment-angle-vector-sequence-full-without-zmp-rc (list (car *new-exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-optional1*)) :initial-time 10000 :final-time 0 :log-fname "/tmp/yuda_log/")
-```
-
-* スイングを行う
-```
-(experiment-angle-vector-sequence-full-without-zmp-rc *new-exp-jpos-deg1* *exp-tm-ms1* *exp-optional1* :initial-time 10000 :final-time 5000 :log-fname "/home_log/") 
 ```
 
 
