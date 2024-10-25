@@ -1,9 +1,5 @@
 # new_util
 
-* angle-vectorを、thk hand ⇨ msl hand用にするもの
-
-
-* まずはじめに、いろんなグローバル変数を集める。
 ```
 roseus ~~
 ```
@@ -14,7 +10,7 @@ roseus ~~
 ```
 
 ```
-(send *ri* :stop-auto-balancer)
+(send *ri* :start-auto-balancer)
 ```
 
 ```
@@ -29,16 +25,30 @@ roseus ~~
 (send *ri* :stop-impedance :arms)
 ```
 
-
 # ZMPとRCの両方を抜いたversion
 ```
 (experiment-angle-vector-sequence-full-without-zmp-rc (list (car *new-exp-jpos-deg1*)) (list (car *exp-tm-ms1*)) (list (car *exp-optional1*)) :initial-time 10000 :final-time 0 :log-fname "/tmp/yuda_log/")
+```
+# 地上にjaxonを下ろす
+
+```
+(send *ri* :start-st)
+```
+```
+(send *ri* :stop-auto-balancer)
 ```
 
 * スイングを行う
 ```
 (experiment-angle-vector-sequence-full-without-zmp-rc *new-exp-jpos-deg1* *exp-tm-ms1* *exp-optional1* :initial-time 10000 :final-time 5000 :log-fname "/home_log/") 
 ```
+
+---
+---
+---
+---
+
+
 
 
 * 空のlistを作ってから、sequenceに値をいれる
